@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vite App</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+</head>
+<body>
+<style>
+    #text {
+        color: #000000;
+        background: #cdcdcd;
+        margin: 15px auto;
+        padding: 8px;
+        border: 2px solid #3c3c3c;
+        border-radius: 15px;
+        max-width: 800px;
+        font-size: 16px;
+    }
+
+    .btn-group {
+        border-radius: 0.5rem;
+        overflow: hidden;
+        background-color: #d3d3d3; /* Green background */
+    }
+
+    .btn-group > button {
+        border: none;
+        background: transparent;
+    }
+
+    .btn-group button {
+        padding: 4px;
+        float: left; /* Float the buttons side by side */
+    }
+
+    .btn-group button img {
+        height: 28px;
+        width: 28px;
+    }
+
+    .btn-group button:hover {
+        background: #9a9a9a;
+    }
+
+    .btn-bar {
+        width: 100%;
+        display: flex;
+        justify-content: space-between
+    }
+
+    .stress-bar {
+        display: flex;
+        gap: 10px;
+    }
+
+    .text-size {
+        display: flex;
+    }
+</style>
+
+
+<style>
+    .colour-picker {
+        /*position: relative;*/
+        /*position: relative;*/
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+    }
+
+    .colour-picker * {
+        position: absolute;
+    }
+
+    .colour-picker input {
+        width: 30px;
+        height: 10px;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        visibility: hidden;
+    }
+
+    #text-colour-picker {
+        width: 30px;
+        height: 30px;
+        background: #888888;
+    }
+</style>
+<div class="colour-picker">
+    <div id="text-colour-picker">*A</div>
+    <!-- Hidden color input -->
+    <input type="color" id="colorPicker">
+</div>
+<script>
+    // Get the elements
+    const colorPicker = document.getElementById('colorPicker');
+    const pickerTextSample = document.getElementById('text-colour-picker');
+
+    // Add click event to the image icon
+    pickerTextSample.addEventListener('click', () => {
+        // Trigger the color picker input
+        colorPicker.click();
+    });
+
+    // Add change event to the color picker to handle color selection
+    colorPicker.addEventListener('change', (event) => {
+        pickerTextSample.style.color = event.target.value
+        document.getElementById('text').style.color = event.target.value;
+    });
+</script>
+
+
+<div class="text-size">
+    <p>A</p>
+    <input id="text-size-range" max="30" min="10" step="1" type="range" value="16">
+    <p>A</p>
+</div>
+<div class="btn-bar">
+    <div class="stress-bar">
+        <div class="btn-group">
+            <button class="low-rise" onclick="insert('low-rise')">
+                <img src="/stress_icons/low-rise.svg" alt="">
+            </button>
+
+            <button class="mid-rise" onclick="insert('mid-rise')">
+                <img src="/stress_icons/mid-rise.svg" alt="">
+            </button>
+
+            <button class="high-rise" onclick="insert('high-rise')">
+                <img src="/stress_icons/high-rise.svg" alt="">
+            </button>
+        </div>
+
+        <div class="btn-group">
+            <button class="low-fall" onclick="insert('low-fall')">
+                <img src="/stress_icons/low-fall.svg" alt="">
+            </button>
+
+            <button class="mid-fall" onclick="insert('mid-fall')">
+                <img src="/stress_icons/mid-fall.svg" alt="">
+            </button>
+
+            <button class="high-fall" onclick="insert('high-fall')">
+                <img src="/stress_icons/high-fall.svg" alt="">
+            </button>
+        </div>
+
+        <div class="btn-group">
+            <button class="fall-rise" onclick="insert('fall-rise')">
+                <img src="/stress_icons/fall-rise.svg" alt="">
+            </button>
+
+            <button class="rise-fall" onclick="insert('rise-fall')">
+                <img src="/stress_icons/rise-fall.svg" alt="">
+            </button>
+        </div>
+
+        <div class="btn-group">
+            <button class="primary-stress" onclick="insert('primary-stress')">
+                <img src="/stress_icons/primary-stress.svg" alt="">
+            </button>
+            <button class="secondary-stress" onclick="insert('secondary-stress')">
+                <img src="/stress_icons/secondary-stress.svg" alt="">
+            </button>
+
+            <button class="partial-stress" onclick="insert('partial-stress')">
+                <img src="/stress_icons/partial-stress.svg" alt="">
+            </button>
+        </div>
+
+    </div>
+
+    <div class="btn-group">
+        <button class="low-rise" onclick="insert('low-rise')">
+            <img src="/stress_icons/low-rise.svg" alt="">
+        </button>
+
+        <button class="mid-rise" onclick="insert('mid-rise')">
+            <img src="/stress_icons/mid-rise.svg" alt="">
+        </button>
+
+        <button class="high-rise" onclick="insert('high-rise')">
+            <img src="/stress_icons/high-rise.svg" alt="">
+        </button>
+    </div>
+</div>
+
+
+<button id="convert-to-image" onclick="">
+    <img src="/save.svg" alt="">
+</button>
+
+<div id="text" contenteditable="true">‘’Get a ‘’reliable ‘↗︎alarm, ‘wake ↗︎up, ‘getting out of ‘bed ‘↘︎system. And the
+    ‘trick to ‘‘this is ‘just ‘’knowing ‘wha(?) your ‘habits ‘↗︎are. So ‘are you ‘someone ‘who ‘snoozes a ↗︎lo(?)? ‘Are
+    you ‘someone ‘who ‘’sleeps ‘through ↗︎alarms? ‘Are you someone ‘who ‘turns off your ‘alarm ↗︎entirely and ‘falls
+    ‘’back to ↘︎sleep? ‘Are you ‘someone who just like ‘wakes up ↘︎naturally at the ‘crack of ‘↘︎dawn? Very ‘jealous of
+    your ↘︎types.
+
+    And the ‘’second ‘thing is to ‘’have a ‘↘︎why. ‘This is ‘’really ↗︎importan(?), ‘especially if you ‘work for
+    ↘︎yourself.
+</div>
+
+</body>
+</html>
+
+
+<script>
+    document.getElementById('text-size-range').addEventListener("input", (event) => {
+        console.log(event.target.value)
+        document.getElementById('text').style.fontSize = event.target.value + 'px';
+    });
+
+
+    document.getElementById('convert-to-image').addEventListener('click', function () {
+        const captureElement = document.getElementById('text');
+
+        html2canvas(captureElement, {backgroundColor: null}).then(canvas => {
+
+            canvas.toBlob(blob => {
+                // Use FileSaver.js to save the blob
+                saveAs(blob, 'captured-image.png');
+            });
+
+            // Convert the canvas to an image
+            const imageData = canvas.toDataURL('image/png');
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageData;
+            downloadLink.download = 'captured-image.png'; // Name of the downloaded file
+
+            // Trigger the download
+            downloadLink.click();
+        });
+    });
+
+
+    function insert(type) {
+        var editableDiv = document.getElementById('text');
+
+        // Insert the text at the current cursor position
+        editableDiv.focus();
+
+        // Use document.execCommand to insert text at the cursor
+        document.execCommand('insertText', false, type);
+    }
+
+</script>
